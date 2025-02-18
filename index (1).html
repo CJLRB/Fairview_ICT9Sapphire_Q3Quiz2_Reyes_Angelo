@@ -42,7 +42,7 @@
         <h1>Fairview Bus Ticketing Station</h1>
     </nav>
     <div class="container">
-        <details>
+        <details open>
             <summary class="bg-info rounded">Personal Information</summary>
             <form class="mt-3">
                 <label>Name</label>
@@ -55,7 +55,7 @@
                 <input type="tel" id="phone" class="form-control mb-2">
                 
                 <label>Occupation</label>
-                <select class="form-select mb-2" id="occupation" onchange="calculateTotal()">
+                <select class="form-select mb-2" id="occupation" >
                     <option value="1">Regular</option>
                     <option value="0.8">Student</option>
                     <option value="0.8">Senior Citizen</option>
@@ -66,10 +66,11 @@
         </details>
 
         <div class="container-fluid mt-4">
-        	<details>
+            <details open>
+            <summary class="bg-primary rounded">Seats</summary>
             <form>
                 <label>Choose your seat</label>
-                <select class="form-select mb-3" id="seat" onchange="calculateTotal()">
+                <select class="form-select mb-3" id="seat">
                     <option value="0">Choose your seat</option>
                     <option value="300">First Floor Regular Seat</option>
                     <option value="375">Second Floor Regular Seat</option>
@@ -77,30 +78,31 @@
                 </select>
 
                 <label>Select Destination from Fairview</label>
-                <select class="form-select" id="destination" onchange="calculateTotal()">
-                    <option value="1">Within Metro Manila<option>
-                    <option value="2.5">Bulacan<option>
-                    <option value="3.5">Pampanga<option>
-                    <option value="4.5">Tarlac<option>
-                    <option value="5.5">Pangasinan<option>
-                    <option value="6.5">La Union<option>
+                <select class="form-select" id="destination">
+                    <option value="1">Within Metro Manila</option>
+                    <option value="2.5">Bulacan</option>
+                    <option value="3.5">Pampanga</option>
+                    <option value="4.5">Tarlac</option>
+                    <option value="5.5">Pangasinan</option>
+                    <option value="6.5">La Union</option>
                 </select>
             </form>
             </details>
             <br><br>
             <button class="btn btn-success" onclick="calculateTotal()">Submit</button>
+            <div id="totalPrice"></div>
         </div>
     </div>
 
     <script type="text/javascript">
         function calculateTotal() {
-            var seatPrice = document.getElementById('seat').value;
-            var destinationMultiplier = document.getElementById('destination').value;
-            var occupationDiscount = document.getElementById('occupation').value;
+            var seatPrice = parseFloat(document.getElementById('seat').value);
+            var destinationMultiplier = parseFloat(document.getElementById('destination').value);
+            var occupationDiscount = parseFloat(document.getElementById('occupation').value);
             
-            var finalPrice = seatPrice * destinationMultiplier * discountMultiplier;
+            var finalPrice = seatPrice * destinationMultiplier * occupationDiscount;
 
-            document.getElementById("result").innerText ="Your total is" + finalPrice + "₱"`;
+            document.getElementById("totalPrice").innerText = "Your total is ₱" + finalPrice;
         }
     </script>
 
